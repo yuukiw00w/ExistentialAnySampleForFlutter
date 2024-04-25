@@ -1,6 +1,8 @@
 import UIKit
 import Flutter
 
+extension FlutterError: Error {}
+
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(

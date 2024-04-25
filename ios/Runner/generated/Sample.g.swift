@@ -130,9 +130,9 @@ class SampleApiCodec: FlutterStandardMessageCodec {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol SampleApi {
-  func fetchSampleAsync(parameter: SampleParameter, completion: @escaping (Result<Sample, Error>) -> Void)
+    func fetchSampleAsync(parameter: SampleParameter, completion: @escaping (Result<Sample, any Error>) -> Void)
   func fetchSampleSync(parameter: SampleParameter) throws -> Sample
-  func objectSampleAsync(parameter: Any?, completion: @escaping (Result<Any?, Error>) -> Void)
+    func objectSampleAsync(parameter: Any?, completion: @escaping (Result<Any?, any Error>) -> Void)
   func objectSampleSync(parameter: Any?) throws -> Any?
 }
 
@@ -141,7 +141,7 @@ class SampleApiSetup {
   /// The codec used by SampleApi.
   static var codec: FlutterStandardMessageCodec { SampleApiCodec.shared }
   /// Sets up an instance of `SampleApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: SampleApi?, messageChannelSuffix: String = "") {
+    static func setUp(binaryMessenger: any FlutterBinaryMessenger, api: (any SampleApi)?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
     let fetchSampleAsyncChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.existential_any_sample.SampleApi.fetchSampleAsync\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
@@ -256,9 +256,9 @@ protocol CallFromNativeProtocol {
   func objectSample(parameter parameterArg: Any?, completion: @escaping (Result<Any?, FlutterError>) -> Void)
 }
 class CallFromNative: CallFromNativeProtocol {
-  private let binaryMessenger: FlutterBinaryMessenger
+    private let binaryMessenger: any FlutterBinaryMessenger
   private let messageChannelSuffix: String
-  init(binaryMessenger: FlutterBinaryMessenger, messageChannelSuffix: String = "") {
+    init(binaryMessenger: any FlutterBinaryMessenger, messageChannelSuffix: String = "") {
     self.binaryMessenger = binaryMessenger
     self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
   }
